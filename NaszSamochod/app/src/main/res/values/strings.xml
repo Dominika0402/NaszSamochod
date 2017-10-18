@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">NaszSamochod</string>
+    <string name="action_settings">Settings</string>
+    <string name="LogIn">NaszSamochód</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="prices_title">STACJE W POBLIŻU</string>
+    <string name="title_activity_maps">Map</string>
+</resources>
