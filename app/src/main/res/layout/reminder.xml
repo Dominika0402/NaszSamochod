@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="60dp">
+
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
+        android:background="@color/black"
+        >
+
+        <ImageView
+            android:id="@+id/carPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/audi"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:layout_marginBottom="10px"
+            />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/black">
+
+        <RelativeLayout
+            android:id="@+id/column1_row2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="3dp"
+            android:layout_marginBottom="3dp"
+            android:background="@color/white">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:layout_marginRight="50px"
+                android:layout_marginLeft="50px"
+                android:layout_marginBottom="100px"
+                android:src="@drawable/audi"
+                android:id="@+id/kmPhoto" />
+
+            <TextView
+                android:id="@+id/kmCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="KM"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="21dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/column2_row2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="3dp"
+            android:background="@color/white"
+            android:layout_marginBottom="3dp">
+
+            <ImageView
+                android:id="@+id/reminderPhoto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:layout_marginRight="50px"
+                android:layout_marginLeft="50px"
+                android:layout_marginBottom="100px"
+                android:src="@drawable/audi"/>
+
+            <TextView
+                android:id="@+id/reminderTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="21dp"
+                android:text="OC/AC"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/black">
+
+    <RelativeLayout
+        android:id="@+id/column1_row3"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginTop="3dp"
+        android:background="@color/white"
+        android:layout_marginRight="3dp">
+
+        <ImageView
+            android:id="@+id/overviewPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:layout_marginRight="50px"
+            android:layout_marginLeft="50px"
+            android:layout_marginBottom="100px"
+            android:src="@drawable/audi"
+            />
+
+        <TextView
+            android:id="@+id/overviewTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="18dp"
+            android:text="PRZEGLĄD" />
+
+    </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/column2_row3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="3dp">
+
+            <ImageView
+                android:id="@+id/changingOilPhoto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="100px"
+                android:layout_marginLeft="50px"
+                android:layout_marginRight="50px"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/audi" />
+
+            <TextView
+                android:id="@+id/changingOilTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="19dp"
+                android:text="WYMIANA OLEJU"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+    </TableRow>
+</TableLayout>
