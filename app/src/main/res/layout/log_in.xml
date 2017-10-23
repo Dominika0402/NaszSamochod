@@ -10,16 +10,6 @@
         android:layout_margin="60dp"
         android:id="@+id/relativeLayout">
 
-        <TableRow
-            android:id="@+id/tableRow"
-            android:layout_below="@+id/logInButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_alignEnd="@+id/password_ET"
-            >
-
-        </TableRow>
 
         <ImageView
             android:id="@+id/mail"
@@ -41,7 +31,7 @@
             android:id="@+id/email_ET"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_marginTop="90dp"
+            android:layout_marginTop="78dp"
             android:ems="10"
             android:hint="@string/email_hint"
             android:inputType="textEmailAddress"
@@ -70,13 +60,13 @@
 
         <ImageButton
             android:id="@+id/logInButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/login"
+            android:scaleType="fitCenter"
             android:layout_below="@+id/password_ET"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="26dp"
-            android:background="@drawable/login"
-            android:scaleType="fitCenter"/>
+            android:layout_marginTop="15dp" />
 
         <TextView
             android:id="@+id/logIn_Tv"
@@ -94,24 +84,34 @@
 
         <ImageButton
             android:id="@+id/facebook_button"
-            android:layout_width="100dp"
+            android:layout_width="180dp"
             android:layout_height="40dp"
             android:layout_column="1"
-            android:background="@drawable/facebook"
+            android:background="@drawable/facebook_button"
             android:text="Rejestracja"
-            android:layout_marginStart="11dp"
-            android:layout_below="@+id/tableRow"
-            android:layout_alignStart="@+id/logIn_Tv" />
+            android:layout_above="@+id/gmail_button"
+            android:layout_centerHorizontal="true" />
 
         <ImageButton
+            android:id="@+id/gmail_button"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:layout_column="1"
+            android:background="@drawable/gmail"
+            android:text="Rejestracja"
+            android:layout_above="@+id/register_button"
+            android:layout_alignStart="@+id/facebook_button" />
+
+        <Button
             android:id="@+id/register_button"
-            android:layout_width="100dp"
+            android:layout_width="180dp"
             android:layout_height="40dp"
             android:layout_column="0"
             android:background="@color/grey3"
-            android:layout_alignTop="@+id/facebook_button"
-            android:layout_toEndOf="@+id/facebook_button" />
+            android:layout_alignParentBottom="true"
+            android:text="ZAREJESTRUJ SIĘ"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
-
 </RelativeLayout>

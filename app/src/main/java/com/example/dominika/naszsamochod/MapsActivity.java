@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,9 +35,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener, GoogleMap.OnMyLocationButtonClickListener, Runnable, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener, GoogleMap.OnMyLocationButtonClickListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
 
-    ///////
     private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
     private static final long MINIMUM_TIME_BETWEEN_UPDATES = 30000;
     protected Location location;
@@ -44,18 +44,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     static double n = 0;
     Long s1, r1;
     double plat, plon, clat, clon, dis;
-    //MyCount counter;
+    //dis = dystans,
+    //clat = szerokosc geograficzna
+    //clon = dlugosc geograficzna
+    MyCount counter;
     Thread t1;
-    EditText e1;
+    TextView e1;
     boolean bool = true;
     LocationManager manager;
     LocationListener listener;
-
-    Button b1, b2, b3, b4, b5;
-    ///
-
-
+    ImageButton b2, b3, b5, b1, b4;
     private GoogleMap mMap;
+    boolean start = true;
 
     private static final String[] INITIAL_PERMS = {
             Manifest.permission.ACCESS_FINE_LOCATION,
@@ -71,24 +71,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-
-        b1 = (Button) findViewById(R.id.current); //current position;
-        b2 = (Button) findViewById(R.id.start); //start moving.. calculates distance on clicking this
-        b3 = (Button) findViewById(R.id.pause); // pause
-        b4 = (Button) findViewById(R.id.resume); // resume
-        b5 = (Button) findViewById(R.id.getdistanse); // get distance
-        //e1 = (EditText) findViewById(R.id.ET);
-        //Button b7 = (Button) findViewById(R.id.trying);
-        //final TextView co = (TextView) findViewById(R.id.co_ordinates);
-        //manager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        b1 = (ImageButton) findViewById(R.id.current); //current position;
+        b2 = (ImageButton) findViewById(R.id.start); //start moving.. calculates distance on clicking this
+        b3 = (ImageButton) findViewById(R.id.pause); // pause
+        b4 = (ImageButton) findViewById(R.id.resume); // resume
+        b5 = (ImageButton) findViewById(R.id.getdistanse); // get distance
+        e1 = (TextView) findViewById(R.id.co_ordinates);
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);              //WYRZUCA NULL
 
 
-        /*listener = new LocationListener() {
+        listener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                co.append("\n Elo: " + location.getLatitude()+ " " + location.getAltitude());
+                Toast.makeText(MapsActivity.this, "DZIALA", Toast.LENGTH_LONG).show();
+                //co.append("\n Elo: " + location.getLatitude()+ " " + location.getAltitude());
             }
             @Override
             public void onStatusChanged(String s, int i, Bundle bundle) {
@@ -102,8 +99,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 startActivity(intent);
             }
-        };*/
-        /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        };
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{
@@ -115,17 +113,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         else
         {
             configureButton();
-        }*/
+        }
 
 
-       /* if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             locationManager.requestLocationUpdates(
                     LocationManager.GPS_PROVIDER,
                     MINIMUM_TIME_BETWEEN_UPDATES,
                     MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
                     new MyLocationListener()
             );
-        }*/
+        }
 
 
         b1.setOnClickListener(new View.OnClickListener() {
@@ -135,20 +133,76 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+        /////??????????????????????????????????????????????????
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                t1 = new Thread();
+                t1.start();
+                counter = new MyCount(30000, 1000);
+                counter.start();
+                new Thread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                            while(start){
+                                clat=location.getLatitude();
+                                clon=location.getLongitude();
+                                if(clat!=plat || clon!=plon){
+                                    plat=clat;
+                                    plon=clon;
+                                    dis+=getDistance(plat,plon,clat,clon);
+                                }
+                            }
+                        }
+                    }
+                }).start();
+            }
+        });
+
+
+        ////?????????????????????????????????????????????????????????????????????
+        b3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                counter.cancel();
+                bool = false;
+                start = false;
+            }
+        });
+
+        b4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                counter = new MyCount(s1, 1000);
+                counter.start();
+                bool = true;
+            }
+        });
+
+        //WYPISANIE PRZEBYTEJ ODLEGLOSCI, CZASU JAZDY, PREDKOSCI
+        b5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                double time = n * 30 + r1;
+                Toast.makeText(MapsActivity.this, "distance in metres:" + String.valueOf(dis) + "Velocity in m/sec :" + String.valueOf(dis / time) + "Time :" + String.valueOf(time), Toast.LENGTH_LONG).show();
+            }
+        });
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
 
         mapFragment.getMapAsync(this);
     }
 
-    /*private void configureButton() {
+    private void configureButton() {
         manager.requestLocationUpdates("gps",5000,0,listener);
-    }*/
+    }
 
 
     protected void showCurrentLocation() {
-
-
         if (location != null) {
             String message = String.format(
                     "Current Location \n Longitude: %1$s \n Latitude: %2$s",
@@ -164,32 +218,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-
-   /* public void start(View v) {
-
-        switch (v.getId()) {
-
-            case R.id.start:
-                t1 = new Thread();
-                t1.start();
-                //counter = new MyCount(30000, 1000);
-                //counter.start();
-                break;
-            case R.id.pause:
-                //counter.cancel();
-                bool = false;
-                break;
-            case R.id.resume:
-                //counter = new MyCount(s1, 1000);
-                //counter.start();
-                bool = true;
-                break;
-            case R.id.getdistanse:
-
-                double time = n * 30 + r1;
-                Toast.makeText(MapsActivity.this, "distance in metres:" + String.valueOf(dis) + "Velocity in m/sec :" + String.valueOf(dis / time) + "Time :" + String.valueOf(time), Toast.LENGTH_LONG).show();
-        }
-    }*/
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
@@ -208,8 +236,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-    /*private class MyLocationListener implements LocationListener {
+    private class MyLocationListener implements LocationListener {
 
+        //DZIALA
         public void onLocationChanged(Location location) {
             String message = String.format(
                     "New Location \n Longitude: %1$s \n Latitude: %2$s",
@@ -218,27 +247,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             Toast.makeText(MapsActivity.this, message, Toast.LENGTH_LONG).show();
         }
-
+        //DZIALA
         public void onStatusChanged(String s, int i, Bundle b) {
             Toast.makeText(MapsActivity.this, "Provider status changed",
                     Toast.LENGTH_LONG).show();
         }
-
+        //DZIALA
         public void onProviderDisabled(String s) {
             Toast.makeText(MapsActivity.this,
                     "Provider disabled by the user. GPS turned off",
                     Toast.LENGTH_LONG).show();
         }
-
+        //DZIALA
         public void onProviderEnabled(String s) {
             Toast.makeText(MapsActivity.this,
                     "Provider enabled by the user. GPS turned on",
                     Toast.LENGTH_LONG).show();
         }
+    }
 
-    }*/
-
-    /*public class MyCount extends CountDownTimer {
+    public class MyCount extends CountDownTimer {
         public MyCount(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
         }
@@ -254,9 +282,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         public void onTick(long millisUntilFinished) {
             s1 = millisUntilFinished;
             r1 = (30000 - s1) / 1000;
-            e1.setText(String.valueOf(r1));
+            e1.setText("TIME: " + String.valueOf(r1));
         }
-    }*/
+    }
 
 
     @Override
@@ -273,7 +301,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMyLocationButtonClickListener(this);
     }
 
-    /*@Override
+    @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
             switch(requestCode)
             {
@@ -282,7 +310,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         configureButton();
                     return;
             }
-    }*/
+    }
 
     @Override
     public void onLocationChanged(Location location) {
@@ -316,34 +344,44 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return false;
     }
 
-    @Override
+
+    //ZAPETLA SIE
+    /*@Override
     public void run() {
-        /*if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            while(bool){
+            while(start){
                 clat=location.getLatitude();
                 clon=location.getLongitude();
                 if(clat!=plat || clon!=plon){
-                    dis+=getDistance(plat,plon,clat,clon);
                     plat=clat;
                     plon=clon;
-
+                    dis+=getDistance(plat,plon,clat,clon);
                 }
-
             }
-        }*/
-    }
+        }
+    }*/
 
-    /*public double getDistance(double lat1, double lon1, double lat2, double lon2) {
-        double latA = Math.toRadians(lat1);
-        double lonA = Math.toRadians(lon1);
-        double latB = Math.toRadians(lat2);
-        double lonB = Math.toRadians(lon2);
-        double cosAng = (Math.cos(latA) * Math.cos(latB) * Math.cos(lonB-lonA)) +
-                (Math.sin(latA) * Math.sin(latB));
-        double ang = Math.acos(cosAng);
-        double dist = ang *6371;
+    public double getDistance(double lat1, double lon1, double lat2, double lon2) {
+        double R = 6371.0;
+
+        double latA = degToRad(lat1);
+        double lonA = degToRad(lon1);
+        double latB = degToRad(lat2);
+        double lonB = degToRad(lon2);
+
+        double dLat = latB - latA;
+        double dLon = lonB - lonA;
+
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double dist = R * c * 1000;
         return dist;
     }
-    */
+
+
+    private static double degToRad(double degrees)
+    {
+        return degrees * (Math.PI / 180);
+    }
 }

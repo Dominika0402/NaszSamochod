@@ -4,7 +4,7 @@
     android:id="@+id/tableLayout_menu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey"
+    android:background="@color/grey4"
     >
 
 
@@ -34,31 +34,33 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="60dp"
+            android:background="@drawable/price"
             />
 
         <Button
             android:id="@+id/reminder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginBottom="60dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="50dp"
             android:layout_weight="1"
+            android:background="@drawable/reminder"
             />
 
         <Button
             android:id="@+id/motoDictionary"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginBottom="60dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="50dp"
             android:layout_weight="1"
+            android:background="@drawable/moto_dictionary"
             />
     </TableRow>
 
@@ -75,27 +77,30 @@
             android:id="@+id/calendar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginBottom="60dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:layout_weight="1"
+            android:background="@drawable/calendar"
             />
 
         <Button
             android:id="@+id/priv_message"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="40dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginBottom="60dp"
+            android:layout_marginRight="30dp"
             android:layout_weight="1"
+            android:background="@drawable/message"
             />
         <Button
             android:id="@+id/group_message"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="40dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginBottom="60dp"
+            android:layout_marginRight="30dp"
             android:layout_weight="1"
+            android:background="@drawable/forum"
             />
     </TableRow>
 
@@ -111,28 +116,31 @@
             android:id="@+id/maps"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginBottom="60dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:layout_weight="1"
+            android:background="@drawable/maps"
            />
 
         <ImageButton
             android:id="@+id/poi"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="40dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginBottom="60dp"
+            android:layout_marginRight="30dp"
             android:layout_weight="1"
+            android:background="@drawable/poi"
            />
 
         <ImageButton
             android:id="@+id/something"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="40dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginBottom="60dp"
+            android:layout_marginRight="30dp"
             android:layout_weight="1"
+            android:background="@drawable/imagess"
             />
 
     </TableRow>

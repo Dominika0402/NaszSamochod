@@ -46,7 +46,8 @@ public class LogIn extends AppCompatActivity {
 
         final ImageButton LogIn = (ImageButton) findViewById(R.id.logInButton);
         ImageButton facebook_button = (ImageButton) findViewById(R.id.facebook_button);
-        ImageButton ragister_button = (ImageButton) findViewById(R.id.register_button);
+        ImageButton gmail_button = (ImageButton) findViewById(R.id.gmail_button);
+        Button ragister_button = (Button) findViewById(R.id.register_button);
 
         EditText email = (EditText) findViewById(R.id.email_ET);
         EditText password = (EditText) findViewById(R.id.password_ET);
