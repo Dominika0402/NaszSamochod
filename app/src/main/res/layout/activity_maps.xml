@@ -1,0 +1,108 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_height="match_parent"
+    android:layout_width="match_parent">
+<fragment
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/map"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.dominika.naszsamochod.MapsActivity"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentStart="true">
+
+
+
+</fragment>
+
+    <ImageButton
+        android:id="@+id/pause"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/pause"
+        android:layout_alignTop="@+id/start"
+        android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:id="@+id/stop"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/stop"
+        android:layout_alignTop="@+id/pause"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="25dp" />
+
+
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TIME:"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:layout_marginTop="12dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="11dp" />
+
+    <ImageButton
+        android:id="@+id/start"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/start"
+        android:text="start"
+        android:layout_marginBottom="23dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="32dp" />
+
+    <TextView
+        android:id="@+id/distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:text="0km"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/timer"
+        android:layout_alignStart="@+id/timer" />
+
+    <EditText
+        android:id="@+id/adress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/distance"
+        android:layout_alignEnd="@+id/stop"
+        android:layout_marginEnd="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/adress"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="44dp"
+        android:layout_toStartOf="@+id/stop"
+        android:text="Button" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/distance"
+        android:layout_below="@+id/distance"
+        android:layout_marginTop="15dp" />
+
+    <Button
+        android:id="@+id/choosePlace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/start"
+        android:layout_alignTop="@+id/button4"
+        android:text="Button" />
+
+</RelativeLayout>
+
