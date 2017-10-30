@@ -1,25 +1,19 @@
-package com.example.dominika.naszsamochod;
+/*package com.example.dominika.naszsamochod;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.media.audiofx.BassBoost;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,11 +24,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-
+///DO WYRZUCENIA
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener, GoogleMap.OnMyLocationButtonClickListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
 
     private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 1; // in Meters
@@ -74,18 +67,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         b1 = (ImageButton) findViewById(R.id.current); //current position;
         b2 = (ImageButton) findViewById(R.id.start); //start moving.. calculates distance on clicking this
         b3 = (ImageButton) findViewById(R.id.pause); // pause
-        b4 = (ImageButton) findViewById(R.id.resume); // resume
+        b4 = (ImageButton) findViewById(R.id.stop); // resume
         b5 = (ImageButton) findViewById(R.id.getdistanse); // get distance
         e1 = (TextView) findViewById(R.id.co_ordinates);
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        //locationManager.requestLocationUpdates("gps",5000,0,listener);
         location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);              //WYRZUCA NULL
 
 
         listener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                Toast.makeText(MapsActivity.this, "DZIALA", Toast.LENGTH_LONG).show();
-                //co.append("\n Elo: " + location.getLatitude()+ " " + location.getAltitude());
+                String message = String.format(
+                        "New Location \n Longitude: %1$s \n Latitude: %2$s",
+                        location.getLongitude(), location.getLatitude()
+                );
+                Toast.makeText(MapsActivity.this, message, Toast.LENGTH_LONG).show();
             }
             @Override
             public void onStatusChanged(String s, int i, Bundle bundle) {
@@ -146,15 +143,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     @Override
                     public void run() {
                         if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                            while(start){
-                                clat=location.getLatitude();
-                                clon=location.getLongitude();
-                                if(clat!=plat || clon!=plon){
-                                    plat=clat;
-                                    plon=clon;
-                                    dis+=getDistance(plat,plon,clat,clon);
+                            try {
+                                Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                                while (start) {
+                                    clat = location.getLatitude();
+                                    clon = location.getLongitude();
+                                    if (clat != plat || clon != plon) {
+                                        plat = clat;
+                                        plon = clon;
+                                        dis += getDistance(plat, plon, clat, clon);
+                                    }
                                 }
+                            }catch(Exception e)
+                            {
+                                e.printStackTrace();
                             }
                         }
                     }
@@ -286,6 +288,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    //DOBRZE OKRESLA LOKALIZACJE
+    private GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
+        @Override
+        public void onMyLocationChange(Location location) {
+            LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
+            //mMarker = mMap.addMarker(new MarkerOptions().position(loc));
+            if(mMap != null){
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
+
+                Toast.makeText(MapsActivity.this, "Latitute: " + location.getLatitude(), Toast.LENGTH_LONG).show();            }
+        }
+    };
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -299,6 +314,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         mMap.setOnMyLocationButtonClickListener(this);
+        mMap.setOnMyLocationChangeListener(myLocationChangeListener);
     }
 
     @Override
@@ -334,7 +350,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onProviderDisabled(String s) {
-
+        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        startActivity(intent);
     }
 
     @Override
@@ -362,7 +379,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }*/
 
-    public double getDistance(double lat1, double lon1, double lat2, double lon2) {
+  /*  public double getDistance(double lat1, double lon1, double lat2, double lon2) {
         double R = 6371.0;
 
         double latA = degToRad(lat1);
@@ -385,3 +402,4 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return degrees * (Math.PI / 180);
     }
 }
+*/

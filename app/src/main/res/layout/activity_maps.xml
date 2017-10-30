@@ -17,45 +17,25 @@
 </fragment>
 
     <ImageButton
-        android:id="@+id/current"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:text="wspolrzedne"
-        android:background="@drawable/dist"
-        android:layout_marginEnd="13dp"
-        android:layout_alignTop="@+id/getdistanse"
-        android:layout_alignParentEnd="true" />
-
-    <ImageButton
         android:id="@+id/pause"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/pause"
-        android:layout_marginEnd="25dp"
         android:layout_alignTop="@+id/start"
-        android:layout_toStartOf="@+id/resume" />
+        android:layout_centerHorizontal="true" />
 
     <ImageButton
-        android:id="@+id/resume"
+        android:id="@+id/stop"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@drawable/resume"
+        android:background="@drawable/stop"
         android:layout_alignTop="@+id/pause"
-        android:layout_toStartOf="@+id/getdistanse"
-        android:layout_marginEnd="28dp" />
-
-    <ImageButton
-        android:id="@+id/getdistanse"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/dist2"
-        android:layout_alignTop="@+id/pause"
-        android:layout_toStartOf="@+id/current"
-        android:layout_marginEnd="17dp" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="25dp" />
 
 
     <TextView
-        android:id="@+id/co_ordinates"
+        android:id="@+id/timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TIME:"
@@ -72,10 +52,41 @@
         android:layout_height="50dp"
         android:background="@drawable/start"
         android:text="start"
-        android:layout_marginBottom="25dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="23dp"
         android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/pause" />
+        android:layout_marginStart="32dp" />
+
+    <TextView
+        android:id="@+id/distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:text="0km"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/timer"
+        android:layout_alignStart="@+id/timer" />
+
+    <EditText
+        android:id="@+id/adress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/distance"
+        android:layout_alignEnd="@+id/stop"
+        android:layout_marginEnd="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/adress"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="44dp"
+        android:layout_toStartOf="@+id/stop"
+        android:text="Button" />
 
 </RelativeLayout>
 
